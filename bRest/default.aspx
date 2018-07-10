@@ -58,7 +58,8 @@ max-width: 100%;
 .d{
 
   padding-top: 15px;
-  
+
+
 
   
 }
@@ -107,6 +108,13 @@ border-radius: 7px;
     cursor: pointer;
 }
 
+    .Items {
+    border:none;
+    padding-right : 5px;
+    margin-top: 10px;
+
+    }
+
 </style>
 
   </head>
@@ -131,18 +139,30 @@ border-radius: 7px;
 <div class="container"><!-- Order Screen-->
   <div class="row">
     <div class="col-lg-3 d"><!-- Order Items -->
-<div class="Items">
-    <asp:ListBox ID="lstitem" runat="server" Height="392px" Width="171px"></asp:ListBox>
-        </div>
+       <div class="menu">
+           <table>
+            <tr><td><asp:ListBox ID="listprize" runat="server" Height="667px"></asp:ListBox></td>
+    
+
+              <td>   <asp:ListBox ID="itemlist" runat="server"  Height="667px" Width="242px" CssClass="itm"></asp:ListBox></td>
+                </tr>
+            </table>
+   
+
+  </div>
+     
+       
+    
     </div>
 
     <div class="col-lg-9 e"><!-- MENU -->
       <div class="menu"><asp:Panel ID="panelButtons" runat="server">
     </asp:Panel></div>
           </div>
-    </div>
     
-</div>
+  </div>
+  </div>
+
 
           <asp:HiddenField ID="hf1" runat="server" />
 

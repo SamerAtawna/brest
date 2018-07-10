@@ -44,46 +44,81 @@ namespace bRest
 
         public void GetButtons()
         {
-            
-            string constring = "Data Source=LAPTOP-4NRGSNGV\\SQLEXPRESS;Integrated Security=SSPI;Initial Catalog=brest";
+
+            string constring = "Data Source='lcsmkcafe02, 3180';User ID=ad_salataox;Password=1@password;Initial Catalog=master";
             SqlConnection con = new SqlConnection(constring);
-              
-            SqlCommand sql = new SqlCommand("select itemname from Items1", con);
+
+            SqlCommand sql = new SqlCommand("select * from Items", con);
 
             SqlDataAdapter da = new SqlDataAdapter(sql);
             DataTable dt = new DataTable();
             da.Fill(dt);
-        
+
             int i = 0;
-          
 
-            foreach (DataRow dr in dt.Rows) { 
 
+            foreach (DataRow dr in dt.Rows)
+            {
+         
                 Button btn = new Button();
+                int a = Convert.ToInt32(dr[1]);
                 btn.Text = dr[0].ToString();
-            
-                btn.CssClass = "button";
-                btn.ID = dr[0].ToString()+i;
-                btn.Click += AddItem; 
                 
+                btn.Click += (s, e) => { itemlist.Items.Add(btn.Text);
+                    listprize.Items.Add(a.ToString());
+                                            
+                                                                        };
+                btn.CssClass = "button";
+                btn.ID = dr[0].ToString() + i;
+
+                string str = btn.Text;
+
                 panelButtons.Controls.Add(btn);
                 hf1.Value = btn.ID;
-
-                arr[i] = dr[0].ToString();
+                arr[i] = btn.ID;
                 arr1[i] = i;
+              
                 i++;
-            
-         
 
 
-            con.Close();
+
+                con.Close();
+            }
         }
 
         private void AddItem(object sender, EventArgs e)
         {
-            string item = arr[1];
-            lstitem.Items.Add(item);
-     
+          
+            object[] data = { "samer", "2" };
+            DataTable dt;
+          
+
+            dt = new DataTable();
+            dt.Columns.Add("Name");
+            dt.Columns.Add("Number");
+
+            ViewState["DataTable"] = dt;
+
+            DataRow dr = dt.NewRow();
+
+            int i = 0;
+            foreach(DataRow dr1 in dt.Rows)
+            {
+                dr1["Name"] = arr[i];
+                dr1["Number"] = arr1[i];
+                dt.Rows.Add(dr);
+                i++;
+            }
+
+            DataList dm = new DataList();
+      
+        
+
+        }
+
+        protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 
